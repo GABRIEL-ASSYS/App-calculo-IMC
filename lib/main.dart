@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   TextEditingController peso = TextEditingController();
   TextEditingController altura = TextEditingController();
 
-  String _texto = "Informe seus dados!" //texto inicial
+  String _texto = "Informe seus dados!"; //texto inicial
 
   //GlobalKey para validar o fomulário
   GlobalKey<FormState> _validacao = GlobalKey<FormState>();
@@ -64,9 +64,41 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Calculadora IMC"),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green, // Cor de fundo da app bar
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: _limparCampos,
+          )
+        ],
+      ),
+      backgroundColor: Colors.white, // Cor de fundo do app
+      body: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(10.0,0.0,10.0,0.0), // Espaçamento das bordas
+        child: Form(
+          key: _validacao, // Chave global do formulário
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch, // Preencher a largura
+            children: <Widget>[
+              Icon(Icons.person_outline, size: 120.0, color: Colors.green),
+              TextFormField(
+                keyboardType: TextInputType.number, // Teclado numérico
+                decoration: InputDecoration(
+                  labelText: "Peso (Kg)",
+                  labelStyle: TextStyle(color: Colors.green)),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.green, fontSize: 25.0),
+                  controller: peso,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Insira seu peso!";
+                    }
+                  },
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
-
 }
