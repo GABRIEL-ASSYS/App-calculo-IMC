@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      //definição da página inicial do app
-      home: Home(),
-      //tirar o debug
-      debugShowCheckedModeBanner: false,
-    ));
+  runApp(MaterialApp(
+    //definição da página inicial do app
+    home: Home(),
+    //tirar o debug
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
 class Home extends StatefulWidget {
@@ -74,27 +73,66 @@ class _HomeState extends State<Home> {
       ),
       backgroundColor: Colors.white, // Cor de fundo do app
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(10.0,0.0,10.0,0.0), // Espaçamento das bordas
+        padding:
+            EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0), // Espaçamento das bordas
         child: Form(
           key: _validacao, // Chave global do formulário
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch, // Preencher a largura
+            crossAxisAlignment:
+                CrossAxisAlignment.stretch, // Preencher a largura
             children: <Widget>[
               Icon(Icons.person_outline, size: 120.0, color: Colors.green),
               TextFormField(
                 keyboardType: TextInputType.number, // Teclado numérico
                 decoration: InputDecoration(
-                  labelText: "Peso (Kg)",
-                  labelStyle: TextStyle(color: Colors.green)),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.green, fontSize: 25.0),
-                  controller: peso,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Insira seu peso!";
-                    }
-                  },
+                    labelText: "Peso (Kg)",
+                    labelStyle: TextStyle(color: Colors.green)),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.green, fontSize: 25.0),
+                controller: peso,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Insira seu peso!";
+                  }
+                },
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number, // Teclado numérico
+                decoration: InputDecoration(
+                    labelText: "Altura (m)",
+                    labelStyle: TextStyle(color: Colors.green)),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.green, fontSize: 25.0),
+                controller: altura,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Insira sua altura!";
+                  }
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                child: Container(
+                  height: 50.0, // Altura do Botão
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_validacao.currentState!.validate()) {
+                        calcularIMC();
+                      }
+                    },
+                    child: Text(
+                      "Calcular",
+                      style: TextStyle(color: Colors.white, fontSize: 25.0),
+                    ),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green)
+                  ),
                 ),
+              ),
+              Text(
+                _texto,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.green, fontSize: 25.0),
+              ),
             ],
           ),
         ),
